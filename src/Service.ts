@@ -2,14 +2,15 @@ import path from 'path';
 import { MessageI, ShipI, ProjectI }  from './Interfaces';
 import date from 'date-and-time';
 import fs from 'fs';
+import async from 'async';
 import os from 'os';
 import { Db } from 'mongodb';
 
 /*********************For NodeMailer***************************/
 export const SMTP_HOST: string = 'smtp.office365.com';
 export const SMTP_PORT: number = 587;
-export const USER_AUTH: string = 'disp@mage.ru';
-export const USER_PASS: string = 'Qomo69541';
+export const USER_AUTH: string = '--auth--';
+export const USER_PASS: string = '--pass--';
 export const RECEIVER: string = 'newdisp@mage.ru';
 export const SECURE: boolean = false;       //  settings for STARTTLS
 export const REQUIRE_TLS: boolean = true;   //
@@ -198,5 +199,38 @@ export function setLog(message: String, log_type: string): void     //set logs
             console.error(err)
             return;
         }
+    });
+}
+
+export function getProjFiles(dirPath : string, callback: Function) 
+{
+    fs.readdir(dirPath, (err, files) => {
+        if (err) return callback(err);
+
+        let filePaths: Array<string> = new Array();
+        async.eachSeries(files, (fileName, eachCallback) => {
+            let filePath = path.join(dirPath, fileName);
+
+            fs.stat(filePath, (err, stat) => {
+                if (err) return eachCallback(err);
+
+                if (stat.isDirectory()) {
+                    getProjFiles(filePath, (err: Error, subDirFiles: string) => {
+                        if (err) return eachCallback(err);
+
+                        filePaths = filePaths.concat(subDirFiles);
+                        eachCallback(null);
+                    });
+
+                } else {
+                    if (stat.isFile() && /\.log$/.test(filePath)) {
+                        filePaths.push(filePath);
+                    }
+                    eachCallback(null);
+                }
+            });
+        }, (err) => {
+            callback(err, filePaths);
+        });
     });
 }

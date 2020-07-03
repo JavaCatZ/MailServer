@@ -9,6 +9,7 @@ import docsRouter from './controllers/DocsController';
 import projRouter from './controllers/ProjectController';
 import vesRouter from './controllers/VesselController';
 import messageRouter from './controllers/MessageController';
+import filesRouter from './controllers/FilesController';
 const server: Application = Express();
 let db: Db;
 
@@ -27,6 +28,7 @@ server.use('/', docsRouter);
 server.use('/', projRouter);
 server.use('/', vesRouter);
 server.use('/', messageRouter);
+server.use('/', filesRouter);
 
 server.get('/docs/:type', async (req : Request, res: Response) => { //Get the set of documents from MongoDB by name (collection's name = type param)
     let docs: Array<Object>;
