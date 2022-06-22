@@ -26,7 +26,7 @@
     "typescript": "^3.8.3"
   },
   "dependencies": {
-    "async": "^3.2.0",
+    "async": "^3.2.2",
     "body-parser": "^1.19.0",
     "date-and-time": "^0.13.1",
     "excel4node": "^1.7.2",
