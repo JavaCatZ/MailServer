@@ -29,7 +29,7 @@
     "async": "^3.2.0",
     "body-parser": "^1.19.0",
     "date-and-time": "^0.13.1",
-    "excel4node": "^1.7.2",
+    "excel4node": "^1.8.0",
     "express": "^4.17.1",
     "md5": "^2.2.1",
     "mongodb": "^2.2.36",
