@@ -27,10 +27,10 @@
   },
   "dependencies": {
     "async": "^3.2.0",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "date-and-time": "^0.13.1",
     "excel4node": "^1.7.2",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "md5": "^2.2.1",
     "mongodb": "^2.2.36",
     "nodemailer": "^6.4.6"
